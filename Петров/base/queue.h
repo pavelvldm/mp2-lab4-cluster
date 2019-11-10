@@ -12,23 +12,26 @@ class Queue
 	int Start;												// первый в очереди
 	int End;												// последний в очереди
 	int Amount;												// количество элементов в очереди
+	int Size;												// размер очереди
 public:
 	Queue()
 	{
 		Start = 0;
 		End = -1;
 		Amount = 0;
-		Qe = new T[MAX_QUEUE_SIZE];
+		Size = MAX_QUEUE_SIZE;
+		Qe = new T[Size];
 	}
 
-	Queue(int Size)
+	Queue(int sz)
 	{
-		if ((Size < 1) || (Size > MAX_QUEUE_SIZE))
+		if ((sz < 1) || (sz > MAX_QUEUE_SIZE))
 			throw std::exception("Wrong size");
 
 		Start = 0;
 		End = -1;
 		Amount = 0;
+		Size = sz;
 		Qe = new T[Size];
 	}
 
@@ -37,16 +40,25 @@ public:
 		delete[] Qe;
 	}
 
-	void AddLast(T& elem);									// вставить в конец очереди
-	T DelLast();											// удалить последний
+	void AddLast(const T& elem);									// вставить в конец очереди
 	T DelFirst();											// удалить первый
+
+	int GetSize() { return Size; }
+	int GetAmount() { return Amount; }
+	int GetStart() { return Start; }
+	int GetEnd() { return End; }
 
 	bool IsFull()											// проверка очереди на полноту
 	{
-		if (!Amount)
+		if (Amount == Size)
+			return true;
+		else
 			return false;
+	}
 
-		if (Amount % MAX_QUEUE_SIZE)
+	bool IsEmpty()
+	{
+		if (Amount)
 			return false;
 		else
 			return true;
