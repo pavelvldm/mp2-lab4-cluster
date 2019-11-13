@@ -84,8 +84,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\base\Queue_Methods.cpp" />
+    <ClCompile Include="test_cluster.cpp" />
     <ClCompile Include="test_main.cpp" />
     <ClCompile Include="test_queue.cpp" />
+    <ClCompile Include="test_task.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

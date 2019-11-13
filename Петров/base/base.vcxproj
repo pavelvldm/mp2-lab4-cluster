@@ -81,11 +81,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Cluster.h" />
     <ClInclude Include="queue.h" />
     <ClInclude Include="Task.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Cluster_Methods.cpp" />
     <ClCompile Include="Queue_Methods.cpp" />
+    <ClCompile Include="sample_cluster.cpp" />
     <ClCompile Include="Task_Methods.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

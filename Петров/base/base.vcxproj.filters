@@ -21,12 +21,21 @@
     <ClInclude Include="Task.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Cluster.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Queue_Methods.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Task_Methods.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Cluster_Methods.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sample_cluster.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

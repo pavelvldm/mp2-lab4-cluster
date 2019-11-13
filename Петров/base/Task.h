@@ -14,6 +14,10 @@ public:
 	Task(int _ID, int p, int t);
 	~Task();
 
+	int GetpTask() { return pTask; }
+	int GettTask() { return tTask; }
+	void SetTact(int n) { tact = n; }
+
 	void tDecrease();
 };
 

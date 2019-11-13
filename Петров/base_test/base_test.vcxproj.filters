@@ -24,5 +24,11 @@
     <ClCompile Include="..\base\Queue_Methods.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="test_task.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test_cluster.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

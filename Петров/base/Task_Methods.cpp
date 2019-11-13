@@ -11,8 +11,11 @@ Task::Task()
 
 Task::Task(int _ID, int _p, int _t)
 {
-	if ((_p < MIN_CPU_AMOUNT) || (_p > MAX_CPU_AMOUNT))
+	if ((_p < 1) || (_p > MAX_CPU_AMOUNT))
 		throw std::exception("Wrong CPU number");
+
+	if (_t < 1)
+		throw std::exception("Wrong tact number");
 
 	ID = _ID;
 	pTask = _p;
