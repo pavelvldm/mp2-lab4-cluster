@@ -1,5 +1,8 @@
 #include "Cluster.h"
+#include "queue.h"
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 
 Cluster::Cluster()
 {
@@ -52,4 +55,46 @@ void Cluster::DecreaseAfterExe()
 	for (int i = 0; i < Value; i++)
 		if (CPU[i]) 
 			CPU[i]--;
+}
+
+void Cluster::RunCluster(int _tact, int maxP, int maxT, int maxTask)
+{
+	if ((_tact < maxT) || (maxP > Value))
+		throw std::exception("Wrong parameters");
+
+	srand(time(NULL));
+
+	Queue<Task> ForTask(MAX_QUEUE_SIZE);
+
+	for (int i = 0; i < _tact; i++)
+	{
+		// на каждом такте приходят задачи
+		int vTask = rand() % maxTask + 1;								// количество задач
+
+		// создаём задачи и записываем в очередь
+		for (int j = 0; j < vTask; j++)
+		{
+			int IDtmp = 1000 + i * 10 + j;
+			int Ptmp = rand() % maxP + 1;
+			int Ttmp = rand() % maxT + 1;
+
+			Task tmp(IDtmp, Ptmp, Ttmp);
+			ForTask.AddLast(tmp);
+		}
+
+		int k = 0;
+		while ((IsFree()) || (k <= vTask))
+		{
+			Task tmp;
+			tmp = ForTask.DelFirst();
+
+			// если задача не пошла на кластер, то возвращаем в очередь
+			if (!ExeTask(tmp))
+				ForTask.AddLast(tmp);
+
+			k++;
+		}
+
+		DecreaseAfterExe();
+	}
 }
