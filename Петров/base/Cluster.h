@@ -13,6 +13,6 @@ public:
 	int IsFree();													// количество свободных процессоров
 	bool ExeTask(Task &T);											// ставим задачу на исполнение
 	void DecreaseAfterExe();										// понижаем число требуемых тактов на исполнение задачи
-	void RunCluster(int _tact, int maxP, int maxT, int maxTask);
+	void RunCluster(int _tact, int maxP, int maxT);
 };
 

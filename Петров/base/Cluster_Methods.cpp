@@ -1,5 +1,10 @@
 #include "Cluster.h"
 #include "queue.h"
+#include "Statistics.h"
+#include "Task.h"
+
+#include "Queue_Methods.cpp"
+
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
@@ -43,9 +48,19 @@ bool Cluster::ExeTask(Task &task)
 		return false;
 	else
 	{
-		for (int i = 0; i < Value; i++)
+		int j = task.GetpTask();
+		int i = 0;
+		while ((i < Value) && (j > 0))
+		{
 			if (CPU[i] == 0)
+			{
 				CPU[i] = task.GettTask();
+				j--;
+			}
+
+			i++;
+		}
+
 		return true;
 	}
 }
@@ -57,19 +72,21 @@ void Cluster::DecreaseAfterExe()
 			CPU[i]--;
 }
 
-void Cluster::RunCluster(int _tact, int maxP, int maxT, int maxTask)
+void Cluster::RunCluster(int _tact, int maxP, int maxT)
 {
-	if ((_tact < maxT) || (maxP > Value))
+	if ((maxP > Value) || (maxT > _tact))
 		throw std::exception("Wrong parameters");
 
 	srand(time(NULL));
 
 	Queue<Task> ForTask(MAX_QUEUE_SIZE);
+	Statistics ClusterStat;
 
 	for (int i = 0; i < _tact; i++)
 	{
-		// на каждом такте приходят задачи
-		int vTask = rand() % maxTask + 1;								// количество задач
+		// на каждом такте приходят задачи от 1 до 5
+		int vTask = rand() % 5 + 1;								// количество задач
+		ClusterStat.AddAppeared(vTask);
 
 		// создаём задачи и записываем в очередь
 		for (int j = 0; j < vTask; j++)
@@ -83,7 +100,7 @@ void Cluster::RunCluster(int _tact, int maxP, int maxT, int maxTask)
 		}
 
 		int k = 0;
-		while ((IsFree()) || (k <= vTask))
+		while ((IsFree()) && (k <= vTask))
 		{
 			Task tmp;
 			tmp = ForTask.DelFirst();
@@ -95,6 +112,14 @@ void Cluster::RunCluster(int _tact, int maxP, int maxT, int maxTask)
 			k++;
 		}
 
+		int OldTaskArg = IsFree();
+
+		ClusterStat.SetInQueue(ForTask.GetAmount());
 		DecreaseAfterExe();
+
+		int CmplTasks = IsFree() - OldTaskArg;
+		ClusterStat.AddCompleted(CmplTasks);
 	}
+
+	ClusterStat.PrintStat();
 }
