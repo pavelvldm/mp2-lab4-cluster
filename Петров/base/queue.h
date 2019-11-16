@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-const int MAX_QUEUE_SIZE = 100;
+const int MAX_QUEUE_SIZE = 1000;
 
 template <typename T>
 class Queue
@@ -41,14 +41,14 @@ public:
 	}
 
 	void AddLast(const T& elem);									// вставить в конец очереди
-	T DelFirst();											// удалить первый
+	T DelFirst();													// удалить первый
 
 	int GetSize() { return Size; }
 	int GetAmount() { return Amount; }
 	int GetStart() { return Start; }
 	int GetEnd() { return End; }
 
-	bool IsFull()											// проверка очереди на полноту
+	bool IsFull()													// проверка очереди на полноту
 	{
 		if (Amount == Size)
 			return true;
@@ -58,7 +58,7 @@ public:
 
 	bool IsEmpty()
 	{
-		if (Amount)
+		if (Amount > 0)
 			return false;
 		else
 			return true;

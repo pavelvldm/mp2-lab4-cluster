@@ -79,7 +79,7 @@ void Cluster::RunCluster(int _tact, int maxP, int maxT)
 
 	srand(time(NULL));
 
-	Queue<Task> ForTask(MAX_QUEUE_SIZE);
+	Queue<Task> ForTask(_tact*5);
 	Statistics ClusterStat;
 
 	for (int i = 0; i < _tact; i++)

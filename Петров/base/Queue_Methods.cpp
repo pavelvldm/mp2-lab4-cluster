@@ -5,8 +5,7 @@ void Queue<T>::AddLast(const T& elem)
 {
 	if (IsFull())
 		throw std::exception("No space");
-
-	if (!IsFull())
+	else
 	{
 		End++;
 		End = End % Size;
