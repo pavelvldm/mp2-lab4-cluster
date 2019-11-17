@@ -1,13 +1,14 @@
 #pragma once
+#include <iostream>
 
 class Statistics
 {
 	int Appeared;					// число по€вившихс€ задач
 	int InQueue;					// число задач в очереди
 	int Completed;					// число завершЄнных задач
+	int MAX_Task;					// максимальное количество пришедших задач
 	double ACL;						// средн€€ загрузка кластера
 public:
-
 	Statistics()
 	{
 		Appeared = 0;
@@ -18,17 +19,43 @@ public:
 
 	void AddAppeared(const int &_a)
 	{
+		if (_a < 0)
+			throw std::exception("Negative Value");
+
 		Appeared += _a;
 	}
 
 	void SetInQueue(const int &_q)
 	{
+		if (_q < 0)
+			throw std::exception("Negative Value");
+
 		InQueue = _q;
 	}
 
 	void AddCompleted(const int &_c)
 	{
+		if (_c < 0)
+			throw std::exception("Negative Value");
+
 		Completed += _c;
+	}
+
+	void SetMax(const int &_max)
+	{
+		if (_max < 0)
+			throw std::exception("Negative Value");
+
+		if (MAX_Task < _max)
+			MAX_Task = _max;
+	}
+
+	void CountACL(const int &_t)
+	{
+		if ((_t < 1) || (MAX_Task < 1))
+			throw std::exception("Wrong Value");
+
+		ACL = (0.1 * Appeared / MAX_Task / _t) * 1000;
 	}
 
 	void PrintStat()
@@ -37,7 +64,7 @@ public:
 		std::cout << "„исло по€вившихс€ задач: " << Appeared << std::endl;
 		std::cout << "„исло выполнившихс€ задач: " << Completed << std::endl;
 		std::cout << "„исло задач в очереди: " << InQueue << std::endl;
-		std::cout << "—редн€€ загрузка кластера: " << ACL << std::endl;
+		std::cout << "—редн€€ загрузка кластера: " << ACL <<  "%" << std::endl;
 	}
 };
 

@@ -2,18 +2,13 @@
 #include "queue.h"
 #include "Statistics.h"
 #include "Task.h"
+#include <vector>
 
 #include "Queue_Methods.cpp"
 
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-
-Cluster::Cluster()
-{
-	Value = 0;
-	CPU = nullptr;
-}
 
 Cluster::Cluster(int _v)
 {
@@ -72,54 +67,69 @@ void Cluster::DecreaseAfterExe()
 			CPU[i]--;
 }
 
-void Cluster::RunCluster(int _tact, int maxP, int maxT)
+void Cluster::RunCluster(const int &_tact)
 {
-	if ((maxP > Value) || (maxT > _tact))
-		throw std::exception("Wrong parameters");
-
 	srand(time(NULL));
 
-	Queue<Task> ForTask(_tact*5);
-	Statistics ClusterStat;
-
-	for (int i = 0; i < _tact; i++)
+	try
 	{
-		// на каждом такте приходят задачи от 1 до 5
-		int vTask = rand() % 5 + 1;								// количество задач
-		ClusterStat.AddAppeared(vTask);
+		Queue<Task> ForTask(_tact * 5);
+		std::vector<Task> ExTask;
 
-		// создаём задачи и записываем в очередь
-		for (int j = 0; j < vTask; j++)
+		Statistics ClusterStat;
+
+		for (int i = 0; i < _tact; i++)
 		{
-			int IDtmp = 1000 + i * 10 + j;
-			int Ptmp = rand() % maxP + 1;
-			int Ttmp = rand() % maxT + 1;
+			// на каждом такте приходят задачи от 1 до 5
+			int vTask = rand() % 5 + 1;								// количество задач
+			ClusterStat.AddAppeared(vTask);
+			ClusterStat.SetMax(vTask);
 
-			Task tmp(IDtmp, Ptmp, Ttmp);
-			ForTask.AddLast(tmp);
-		}
+			// создаём задачи и записываем в очередь
+			for (int j = 0; j < vTask; j++)
+			{
+				int IDtmp = 1000 + i * 10 + j;
+				int Ptmp = rand() % Value + 1;
+				int Ttmp = rand() % _tact + 1;
 
-		int k = 0;
-		while ((IsFree()) && (k <= vTask))
-		{
-			Task tmp;
-			tmp = ForTask.DelFirst();
-
-			// если задача не пошла на кластер, то возвращаем в очередь
-			if (!ExeTask(tmp))
+				Task tmp(IDtmp, Ptmp, Ttmp);
 				ForTask.AddLast(tmp);
+			}
 
-			k++;
+			int k = 0;
+			while ((IsFree()) && (k <= vTask))
+			{
+				Task tmp;
+				tmp = ForTask.DelFirst();
+
+				// если задача не пошла на кластер, то возвращаем в очередь
+				if (!ExeTask(tmp))
+					ForTask.AddLast(tmp);
+				else
+					ExTask.push_back(tmp);
+
+				k++;
+			}
+
+			for (int m = 0; m < ExTask.size(); m++)
+				ExTask[m].DecreaseAfterExe();
+
+			ClusterStat.SetInQueue(ForTask.GetAmount());
+			DecreaseAfterExe();
 		}
 
-		int OldTaskArg = IsFree();
+		int CpltTasks = 0;
 
-		ClusterStat.SetInQueue(ForTask.GetAmount());
-		DecreaseAfterExe();
+		for (int i = 0; i < ExTask.size(); i++)
+			if (ExTask[i].GettTask() == 0)
+				CpltTasks++;
 
-		int CmplTasks = IsFree() - OldTaskArg;
-		ClusterStat.AddCompleted(CmplTasks);
+		ClusterStat.AddCompleted(CpltTasks);
+		ClusterStat.CountACL(_tact);
+		ClusterStat.PrintStat();
 	}
-
-	ClusterStat.PrintStat();
+	catch (std::exception &e)
+	{
+		std::cout << "Ошибка: Слишком большой размер очереди" << std::endl;
+	}
 }

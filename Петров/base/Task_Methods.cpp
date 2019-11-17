@@ -6,7 +6,6 @@ Task::Task()
 	ID = 0;
 	pTask = 0;
 	tTask = 0;
-	tact = 0;
 }
 
 Task::Task(int _ID, int _p, int _t)
@@ -20,7 +19,6 @@ Task::Task(int _ID, int _p, int _t)
 	ID = _ID;
 	pTask = _p;
 	tTask = _t;
-	tact = 0;
 }
 
 
@@ -29,10 +27,9 @@ Task::~Task()
 	ID = 0;
 	pTask = 0;
 	tTask = 0;
-	tact = 0;
 }
 
-void Task::tDecrease()
+void Task::DecreaseAfterExe()
 {
 	if (tTask > 0)
 		tTask--;

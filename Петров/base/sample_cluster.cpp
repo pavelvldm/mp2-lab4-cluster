@@ -9,7 +9,6 @@ using namespace std;
 
 int main()
 {
-
 	setlocale(LC_CTYPE, "Rus");
 
 	int vTact, vCPU;
@@ -22,7 +21,7 @@ int main()
 
 	Cluster DemoCluster(vCPU);
 
-	DemoCluster.RunCluster(vTact, 2, 3);
+	DemoCluster.RunCluster(vTact);
 
 	system("pause");
 	return 0;
