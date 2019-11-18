@@ -19,9 +19,16 @@ int main()
 	cout << "Введите количество процессоров: ";
 	cin >> vCPU;
 
-	Cluster DemoCluster(vCPU);
+	try
+	{
+		Cluster DemoCluster(vCPU);
 
-	DemoCluster.RunCluster(vTact);
+		DemoCluster.RunCluster(vTact);
+	}
+	catch (int a)
+	{
+		if (a == 1) cout << "Ошибка: Недопустимое количество процессоров" << endl;
+	}
 
 	system("pause");
 	return 0;

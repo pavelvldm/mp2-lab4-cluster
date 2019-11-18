@@ -24,7 +24,7 @@ public:
 	Queue(int sz)
 	{
 		if ((sz < 1) || (sz > MAX_QUEUE_SIZE))
-			throw std::exception("Wrong size");
+			throw 2;
 
 		Start = 0;
 		End = -1;

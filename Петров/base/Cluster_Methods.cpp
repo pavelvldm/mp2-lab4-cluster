@@ -13,7 +13,7 @@
 Cluster::Cluster(int _v)
 {
 	if ((_v < MIN_CPU_AMOUNT) || (_v > MAX_CPU_AMOUNT))
-		throw std::exception("Wrong value");
+		throw 1;
 	Value = _v;
 	CPU = new int[Value];
 
@@ -89,7 +89,7 @@ void Cluster::RunCluster(const int &_tact)
 			for (int j = 0; j < vTask; j++)
 			{
 				int IDtmp = 1000 + i * 10 + j;
-				int Ptmp = rand() % Value + 1;
+				int Ptmp = rand() % 5 + 1;
 				int Ttmp = rand() % _tact + 1;
 
 				Task tmp(IDtmp, Ptmp, Ttmp);
@@ -97,7 +97,7 @@ void Cluster::RunCluster(const int &_tact)
 			}
 
 			int k = 0;
-			while ((IsFree()) && (k <= vTask))
+			while ((k < vTask) && (IsFree()))
 			{
 				Task tmp;
 				tmp = ForTask.DelFirst();
@@ -128,8 +128,8 @@ void Cluster::RunCluster(const int &_tact)
 		ClusterStat.CountACL(_tact);
 		ClusterStat.PrintStat();
 	}
-	catch (std::exception &e)
+	catch (int a)
 	{
-		std::cout << "Ошибка: Слишком большой размер очереди" << std::endl;
+		if (a == 2) std::cout << "Ошибка: Недопустимый размер очереди" << std::endl;
 	}
 }
