@@ -67,21 +67,30 @@ void Cluster::DecreaseAfterExe()
 			CPU[i]--;
 }
 
-void Cluster::RunCluster(const int &_tact)
+void Cluster::RunCluster(const int &_tact, const int &_vTask, const int &_vTact, const int &_vCPU)
 {
 	srand(time(NULL));
 
 	try
 	{
-		Queue<Task> ForTask(_tact * 5);
+		if ((_tact < 1) || (_vTask < 1) || (_vTact < 1) || (_vCPU < 1))
+			throw 4;
+
+		if (_tact * _vTask > MAX_QUEUE_SIZE)
+			throw 2;
+
+		if (_vCPU > Value)
+			throw 3;
+
+		Queue<Task> ForTask(_tact * _vTask);
 		std::vector<Task> ExTask;
 
 		Statistics ClusterStat;
 
 		for (int i = 0; i < _tact; i++)
 		{
-			// на каждом такте приходят задачи от 1 до 5
-			int vTask = rand() % 5 + 1;								// количество задач
+			// на каждом такте приходят задачи от 1 до _vTask
+			int vTask = rand() % _vTask + 1;								// количество задач
 			ClusterStat.AddAppeared(vTask);
 			ClusterStat.SetMax(vTask);
 
@@ -89,8 +98,8 @@ void Cluster::RunCluster(const int &_tact)
 			for (int j = 0; j < vTask; j++)
 			{
 				int IDtmp = 1000 + i * 10 + j;
-				int Ptmp = rand() % 5 + 1;
-				int Ttmp = rand() % _tact + 1;
+				int Ptmp = rand() % _vCPU + 1;
+				int Ttmp = rand() % _vTact + 1;
 
 				Task tmp(IDtmp, Ptmp, Ttmp);
 				ForTask.AddLast(tmp);
@@ -130,6 +139,8 @@ void Cluster::RunCluster(const int &_tact)
 	}
 	catch (int a)
 	{
-		if (a == 2) std::cout << "Ошибка: Недопустимый размер очереди" << std::endl;
+		if (a == 2) std::cout << "\tОшибка: Недопустимый размер очереди" << std::endl;
+		if (a == 3) std::cout << "\tОшибка: Недопустимое максимально количество процессоров для задачи" << std::endl;
+		if (a == 4) std::cout << "\tОшибка: Неверные значения параметров" << std::endl;
 	}
 }

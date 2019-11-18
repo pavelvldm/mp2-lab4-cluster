@@ -60,11 +60,11 @@ public:
 
 	void PrintStat()
 	{
-		std::cout << std::endl << "\tРабота завершена. Статистика: " << std::endl;
+		std::cout << std::endl << "\tРабота кластера завершена. Статистика: " << std::endl;
 		std::cout << "Число появившихся задач: " << Appeared << std::endl;
 		std::cout << "Число выполнившихся задач: " << Completed << std::endl;
 		std::cout << "Число задач в очереди: " << InQueue << std::endl;
-		std::cout << "Средняя загрузка кластера: " << ACL <<  "%" << std::endl;
+		std::cout << "Средняя загрузка кластера: " << ACL <<  "%\n\n";
 	}
 };
 
