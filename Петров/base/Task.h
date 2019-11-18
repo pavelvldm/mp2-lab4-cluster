@@ -28,6 +28,14 @@ public:
 		return *this;
 	}
 
+	bool operator==(const Task &tmp) const
+	{
+		if ((ID == tmp.ID) && (pTask == tmp.pTask) && (tTask == tmp.tTask))
+			return true;
+		else
+			return false;
+	}
+
 	void DecreaseAfterExe();
 };
 

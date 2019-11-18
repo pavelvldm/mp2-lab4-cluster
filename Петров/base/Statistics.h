@@ -6,6 +6,7 @@ class Statistics
 	int Appeared;					// число появившихся задач
 	int InQueue;					// число задач в очереди
 	int Completed;					// число завершённых задач
+	int NotCompleted;				// число незавершённых задач на кластере
 	int MAX_Task;					// максимальное количество пришедших задач
 	double ACL;						// средняя загрузка кластера
 public:
@@ -14,6 +15,7 @@ public:
 		Appeared = 0;
 		InQueue = 0;
 		Completed = 0;
+		NotCompleted = 0;
 		ACL = 0;
 	}
 
@@ -41,6 +43,11 @@ public:
 		Completed += _c;
 	}
 
+	void AddNotCompleted()
+	{
+		NotCompleted++;
+	}
+
 	void SetMax(const int &_max)
 	{
 		if (_max < 0)
@@ -63,6 +70,7 @@ public:
 		std::cout << std::endl << "\tРабота кластера завершена. Статистика: " << std::endl;
 		std::cout << "Число появившихся задач: " << Appeared << std::endl;
 		std::cout << "Число выполнившихся задач: " << Completed << std::endl;
+		std::cout << "Число невыполнившихся задач: " << NotCompleted << std::endl;
 		std::cout << "Число задач в очереди: " << InQueue << std::endl;
 		std::cout << "Средняя загрузка кластера: " << ACL <<  "%\n\n";
 	}

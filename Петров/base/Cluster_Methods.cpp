@@ -132,6 +132,8 @@ void Cluster::RunCluster(const int &_tact, const int &_vTask, const int &_vTact,
 		for (int i = 0; i < ExTask.size(); i++)
 			if (ExTask[i].GettTask() == 0)
 				CpltTasks++;
+			else
+				ClusterStat.AddNotCompleted();
 
 		ClusterStat.AddCompleted(CpltTasks);
 		ClusterStat.CountACL(_tact);
