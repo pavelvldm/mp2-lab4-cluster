@@ -10,14 +10,7 @@ class Statistics
 	int MAX_Task;					// максимальное количество пришедших задач
 	double ACL;						// средняя загрузка кластера
 public:
-	Statistics()
-	{
-		Appeared = 0;
-		InQueue = 0;
-		Completed = 0;
-		NotCompleted = 0;
-		ACL = 0;
-	}
+	Statistics() : Appeared(0), InQueue(0), Completed(0), NotCompleted(0), ACL(0) {}
 
 	void AddAppeared(const int &_a)
 	{

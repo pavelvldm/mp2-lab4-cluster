@@ -10,7 +10,7 @@
 #include <cstdlib>
 #include <ctime>
 
-Cluster::Cluster(int _v)
+Cluster::Cluster(const int &_v)
 {
 	if ((_v < MIN_CPU_AMOUNT) || (_v > MAX_CPU_AMOUNT))
 		throw 1;
