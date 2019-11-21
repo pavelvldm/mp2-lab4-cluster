@@ -10,7 +10,7 @@ class Task
 	int tTask;						// число тактов для выполнения
 public:
 	Task();
-	Task(const int _ID, const int p, const int t);
+	Task(const int &_ID, const int &_p, const int &_t);
 	~Task();
 
 	int GetpTask() { return pTask; }

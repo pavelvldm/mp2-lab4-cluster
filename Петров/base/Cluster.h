@@ -6,7 +6,7 @@ class Cluster
 	int Value;																					// количество процессоров
 	int *CPU;																					// флаги для процессоров
 public:
-	Cluster(int _v);
+	Cluster(const int &_v);
 	~Cluster();
 
 	int IsFree();																				// количество свободных процессоров

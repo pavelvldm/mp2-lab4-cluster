@@ -1,14 +1,9 @@
 #include "Task.h"
 #include <iostream>
 
-Task::Task()
-{
-	ID = 0;
-	pTask = 0;
-	tTask = 0;
-}
+Task::Task() : ID(0), pTask(0), tTask(0) {}
 
-Task::Task(int _ID, int _p, int _t)
+Task::Task(const int &_ID, const int &_p, const int &_t)
 {
 	if ((_p < 1) || (_p > MAX_CPU_AMOUNT))
 		throw std::exception("Wrong CPU number");

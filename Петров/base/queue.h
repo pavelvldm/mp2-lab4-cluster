@@ -21,7 +21,7 @@ public:
 		Qe = new T[Size];
 	}
 
-	Queue(int sz)
+	Queue(const int &sz)
 	{
 		if ((sz < 1) || (sz > MAX_QUEUE_SIZE))
 			throw 2;
